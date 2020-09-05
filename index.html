@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
+    <title>3D Renderer</title>
+
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font: 100%;
+            font-family: 'Poppins', sans-serif;
+            color: #ffffff;
+            background: rgb(56,50,50);
+            background: radial-gradient(circle, rgba(56,50,50,1) 0%, rgba(100,95,95,1) 100%, rgba(246,246,246,0.969625350140056) 100%);
+            
+        }
+        .container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            cursor: pointer;
+        }
+        .model {
+          width: 400px;
+          height: 400px;
+        }
+
+
+      </style>
+</head>
+<body>
+    <div class="container">
+        <x-model class="model" src="./obj/Man.obj"></x-model>
+        <h1>Scroll to rotate the model</h1>
+    </div>
+
+    <script src="./js/three.min.js"></script>
+    <script src="./js/three-obj-loader.js"></script>
+    <script src="./js/model-element.min.js"></script>
+
+    <script>
+        const container = document.querySelector('.container');
+        const model = document.querySelector('.model');
+        let scale = 0;
+        
+
+        function rotate(event) {
+            event.preventDefault();
+
+            scale += event.deltaY * -0.01;
+
+            // Restrict scale
+            scale = Math.min(Math.max(-360, scale), 360);
+
+            // Apply scale transform
+            model.style.transform = `rotateY(${scale}deg)`;
+        }
+
+
+        container.addEventListener('wheel', rotate)
+
+        
+    </script>
+</body>
+</html>
